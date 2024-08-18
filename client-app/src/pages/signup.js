@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -7,31 +8,31 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, email, password, phone, address);
+
     try {
       const response = await axios.post(
         "http://localhost:4000/api/auth/register",
-        {
-          name,
-          email,
-          password,
-          phone,
-          address,
-        }
+        { name, email, password, phone, address }
       );
-      // Check for successful response based on status or other criteria
       if (response.status === 200) {
         console.log("sending success");
         console.log(response.data.message);
+        navigate("/login");
+        setName("");
+        setEmail("");
+        setPassword("");
+        setPhone("");
+        setAddress("");
       } else {
         console.log("sending failure");
         console.log(response.data.message);
       }
     } catch (error) {
-      // Error handling
       console.error(
         "Error occurred:",
         error.response ? error.response.data.message : error.message
