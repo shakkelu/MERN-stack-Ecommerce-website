@@ -1,8 +1,3 @@
 export const Body = ({ children }) => {
-  return (
-    <div className="body">
-      body
-      {children}
-    </div>
-  );
+  return <div className="body">{children}</div>;
 };

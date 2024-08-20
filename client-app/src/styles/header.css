@@ -1,0 +1,46 @@
+.header {
+  min-height: 12vh;
+  border-bottom: 2px solid #000;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.nav-text {
+  font-size: 20px;
+}
+.branding {
+  display: flex;
+  justify-content: center;
+}
+/* Remove default styling from NavLink */
+.nav-link {
+  color: inherit; /* Use the inherited color from the parent element */
+  text-decoration: none; /* Remove the underline */
+  display: inline-block; /* Ensure proper alignment with other inline elements */
+  position: relative; /* Positioning context for the pseudo-element */
+}
+
+/* Add bottom line (underline) only for the active link */
+.active-link::after {
+  content: ""; /* Empty content for the pseudo-element */
+  display: block; /* Make it a block element to create a line */
+  width: 100%; /* Full width of the link */
+  height: 2px; /* Line thickness */
+  background-color: #000; /* Line color */
+  position: absolute; /* Position the line absolutely */
+  bottom: 0; /* Align to the bottom of the link */
+  left: 0; /* Align to the left edge of the link */
+}
+
+table {
+  width: 100%;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
