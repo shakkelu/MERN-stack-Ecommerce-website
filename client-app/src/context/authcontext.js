@@ -7,17 +7,19 @@ export const Authprovider = ({ children }) => {
     user: null,
     token: "",
   });
+
   useEffect(() => {
+    // Retrieve and parse auth data from local storage on mount
     const data = localStorage.getItem("auth");
     if (data) {
-      const parsedata = JSON.parse(data);
+      const parsedData = JSON.parse(data);
       setAuth({
-        ...auth,
-        user: parsedata.user,
-        token: parsedata.token,
+        user: parsedData.user,
+        token: parsedData.token,
       });
     }
-  }, [auth]);
+  }, []); // Empty dependency array to run effect only once on mount
+
   return (
     <Authcontext.Provider value={[auth, setAuth]}>
       {children}

@@ -28,29 +28,8 @@ const Login = () => {
           token: response.data.token,
         });
         //setting user details with token in the local storage
-        const localdata = JSON.stringify(response.data);
-        const localkey = "auth";
-        function setItem(key, value) {
-          return new Promise((resolve, reject) => {
-            try {
-              localStorage.setItem(key, value);
-              resolve("Item set successfully"); // Resolve the promise with a success message
-            } catch (error) {
-              reject("Failed to set item"); // Reject the promise if an error occurs
-            }
-          });
-        }
 
-        setItem(localkey, localdata)
-          .then((message) => {
-            console.log(message); // This will log 'Item set successfully' to the console
-          })
-          .catch((error) => {
-            console.error(error); // This will log 'Failed to set item' to the console if there's an error
-          });
-
-        const getdata = localStorage.getItem("auth");
-        console.log(getdata);
+        localStorage.setItem("auth", JSON.stringify(response.data));
       } else {
         console.log("sending failure");
         console.log(response.data.message);

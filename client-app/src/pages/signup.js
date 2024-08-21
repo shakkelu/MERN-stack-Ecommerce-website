@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  // State variables for form fields
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +11,7 @@ const Signup = () => {
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name, email, password, phone, address);
@@ -19,17 +21,20 @@ const Signup = () => {
         "http://localhost:4000/api/auth/register",
         { name, email, password, phone, address }
       );
+
       if (response.status === 200) {
-        console.log("sending success");
+        console.log("Sending success");
         console.log(response.data.message);
-        navigate("/login");
+        // Reset form fields
         setName("");
         setEmail("");
         setPassword("");
         setPhone("");
         setAddress("");
+        // Navigate to login page
+        navigate("/login");
       } else {
-        console.log("sending failure");
+        console.log("Sending failure");
         console.log(response.data.message);
       }
     } catch (error) {
