@@ -1,6 +1,16 @@
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/authcontext";
 
 export function Header() {
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+  };
   return (
     <table className="header">
       <tbody>
@@ -20,22 +30,48 @@ export function Header() {
               >
                 <div className="nav-text poppins-light">Home</div>
               </NavLink>
-              <NavLink
-                to="/signup"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active-link" : "nav-link"
-                }
-              >
-                <div className="nav-text poppins-light">Sign Up</div>
-              </NavLink>
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active-link" : "nav-link"
-                }
-              >
-                <div className="nav-text poppins-light">Login</div>
-              </NavLink>
+
+              {!auth.user ? (
+                <>
+                  <NavLink
+                    to="/signup"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Sign Up</div>
+                  </NavLink>
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Login</div>
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to="/account"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Account</div>
+                  </NavLink>
+                  <NavLink
+                    to="/login"
+                    onClick={handleLogout}
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Logout</div>
+                  </NavLink>
+                </>
+              )}
+
               <NavLink
                 to="/contact-us"
                 className={({ isActive }) =>

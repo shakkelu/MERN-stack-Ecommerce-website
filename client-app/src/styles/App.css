@@ -10,13 +10,6 @@
   align-items: center;
   justify-content: center;
 }
-.footer {
-  min-height: 25vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 
 .box-form {
   width: 600px;
