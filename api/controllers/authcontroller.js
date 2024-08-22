@@ -2,6 +2,12 @@ import bcrypt from "bcrypt"; // Assuming bcrypt for hashing
 import userModel from "../models/user.js"; // Adjust the path as necessary
 import JWT from "jsonwebtoken";
 
+/* 
+
+Register controller ( or signup function)
+
+*/
+
 export const registercontroller = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
@@ -48,6 +54,12 @@ export const registercontroller = async (req, res) => {
       .send({ success: "false", message: "Error in registration", error });
   }
 };
+
+/* 
+
+Login controller
+
+*/
 
 export const loginController = async (req, res) => {
   try {
@@ -101,4 +113,10 @@ export const loginController = async (req, res) => {
       .send({ success: "false", message: "Error in login", error });
   }
 };
+
+/*
+
+private content 
+
+*/
 export const privatecontent = (req, res) => res.send("private content here");

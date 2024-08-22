@@ -1,4 +1,5 @@
 import { useState, useContext, createContext, useEffect } from "react";
+import axios from "axios";
 
 const Authcontext = createContext();
 
@@ -19,6 +20,9 @@ export const Authprovider = ({ children }) => {
       });
     }
   }, []); // Empty dependency array to run effect only once on mount
+
+  //Default axios
+  axios.defaults.headers.common["Authorization"] = auth?.token;
 
   return (
     <Authcontext.Provider value={[auth, setAuth]}>

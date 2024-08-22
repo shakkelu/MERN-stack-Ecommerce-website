@@ -11,6 +11,7 @@ import Contactus from "./pages/contactus.js";
 import Notfound from "./pages/notfound.js";
 import Home from "./pages/home.js";
 import Account from "./pages/account.js";
+import AccessReq from "./routes/privateroute.js";
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/account" element={<AccessReq />}>
+            <Route path=" " element={<Account />} />
+          </Route>
           <Route path="/contact-us" element={<Contactus />} />
           <Route path="*" element={<Notfound />} />
         </Routes>

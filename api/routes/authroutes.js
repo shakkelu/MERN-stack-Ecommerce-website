@@ -14,6 +14,11 @@ router.post("/register", registercontroller);
 // POST route for user login
 router.post("/login", loginController);
 
+// private routes
 router.post("/logged", loggedin, privatecontent);
+
+router.get("/account", loggedin, (req, res) => {
+  res.send({ set: "ok" });
+});
 
 export default router;
