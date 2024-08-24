@@ -23,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/account" element={<AccessReq />}>
-            <Route path=" " element={<Account />} />
+            <Route path="" element={<Account />} />
           </Route>
           <Route path="/contact-us" element={<Contactus />} />
           <Route path="*" element={<Notfound />} />
