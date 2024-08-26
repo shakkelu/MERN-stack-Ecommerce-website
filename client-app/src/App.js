@@ -10,8 +10,8 @@ import Signup from "./pages/signup.js";
 import Contactus from "./pages/contactus.js";
 import Notfound from "./pages/notfound.js";
 import Home from "./pages/home.js";
-import Account from "./pages/account.js";
 import AccessReq from "./routes/privateroute.js";
+import userDashboard from "./pages/userDashboard";
 
 function App() {
   return (
@@ -22,8 +22,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/account" element={<AccessReq />}>
-            <Route path="" element={<Account />} />
+          <Route path="/user" element={<AccessReq />}>
+            <Route path="/dashboard" element={<userDashboard />} />
           </Route>
           <Route path="/contact-us" element={<Contactus />} />
           <Route path="*" element={<Notfound />} />

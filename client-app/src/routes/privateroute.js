@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
+import Spinner from "./../components/spinner.js";
 
 const AccessReq = () => {
   const [ok, setOk] = useState(null); // `null` for loading state
@@ -33,7 +34,7 @@ const AccessReq = () => {
     return <div>Loading...</div>; // Or a spinner
   }
 
-  return <>{ok ? <Outlet /> : "Not authorized"}</>;
+  return <>{ok ? <Outlet /> : <Spinner />}</>;
 };
 
 export default AccessReq;
