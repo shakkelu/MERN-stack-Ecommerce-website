@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"; // Assuming bcrypt for hashing
-import userModel from "../models/user.js"; // Adjust the path as necessary
+import userModel from "../models/user.js";
+import Dashboard from "../models/userDashboard.js";
 import JWT from "jsonwebtoken";
 
 /* 
@@ -42,6 +43,14 @@ export const registercontroller = async (req, res) => {
     });
 
     await newUser.save();
+
+    // Create a dashboard for the new user
+    const newDashboard = new Dashboard({
+      userId: newUser._id,
+      // Initialize other fields if needed
+    });
+
+    await newDashboard.save();
 
     res.status(200).send({
       success: "true",

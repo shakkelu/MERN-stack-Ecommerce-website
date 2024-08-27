@@ -6,7 +6,7 @@ export const loggedin = async (req, res, next) => {
       req.headers.authorization,
       process.env.JWT_SECRET
     );
-    console.log(decode);
+    console.log(decode?._id);
     next();
   } catch (error) {
     console.log(error);
