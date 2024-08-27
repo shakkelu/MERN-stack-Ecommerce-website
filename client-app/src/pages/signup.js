@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useMessage } from "../context/messagecontext.js";
+/*
 
+
+sign up function  
+
+
+*/
 const Signup = () => {
   // State variables for form fields
   const [name, setName] = useState("");
@@ -10,7 +17,7 @@ const Signup = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const navigate = useNavigate();
-
+  const { message, setMessage } = useMessage();
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +32,7 @@ const Signup = () => {
       if (response.status === 200) {
         console.log("Sending success");
         console.log(response.data.message);
+        setMessage(response.data.message);
         // Reset form fields
         setName("");
         setEmail("");
@@ -36,6 +44,7 @@ const Signup = () => {
       } else {
         console.log("Sending failure");
         console.log(response.data.message);
+        setMessage(response.data.message);
       }
     } catch (error) {
       console.error(
@@ -49,7 +58,7 @@ const Signup = () => {
     <div className="fcc">
       <div className="box-form fcc">
         <form className="fcc" onSubmit={handleSubmit}>
-          <div className="form-label">Signup form</div>
+          <div className="form-label">{message ? message : "Signup form"}</div>
           <div className="mb-3">
             <input
               type="text"

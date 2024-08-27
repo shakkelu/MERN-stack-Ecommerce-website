@@ -11,7 +11,7 @@ import Contactus from "./pages/contactus.js";
 import Notfound from "./pages/notfound.js";
 import Home from "./pages/home.js";
 import AccessReq from "./routes/privateroute.js";
-import userDashboard from "./pages/userDashboard";
+import UserDashboard from "./pages/userDashboard.js";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/user" element={<AccessReq />}>
-            <Route path="/dashboard" element={<userDashboard />} />
+            <Route path="dashboard" element={<UserDashboard />} />
           </Route>
           <Route path="/contact-us" element={<Contactus />} />
           <Route path="*" element={<Notfound />} />

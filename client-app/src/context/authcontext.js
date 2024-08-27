@@ -1,14 +1,15 @@
-import { useState, useContext, createContext, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 
-const Authcontext = createContext();
+const AuthContext = createContext();
 
-export const Authprovider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     user: null,
     token: "",
   });
 
+  // Load auth data from local storage on mount
   useEffect(() => {
     // Retrieve and parse auth data from local storage on mount
     const data = localStorage.getItem("auth");
@@ -21,14 +22,18 @@ export const Authprovider = ({ children }) => {
     }
   }, []); // Empty dependency array to run effect only once on mount
 
-  //Default axios
-  axios.defaults.headers.common["Authorization"] = auth?.token;
+  // Set axios default headers whenever auth changes
+  useEffect(() => {
+    axios.defaults.headers.common["Authorization"] = auth?.token;
+  }, [auth.token]); // Dependency array includes auth.token to update headers when it changes
 
+  // Provide context values
   return (
-    <Authcontext.Provider value={[auth, setAuth]}>
+    <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
-    </Authcontext.Provider>
+    </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(Authcontext);
+// Custom hook to use the Auth context
+export const useAuth = () => useContext(AuthContext);

@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth } from "../context/authcontext";
 
 function Home() {
-  const [auth, setAuth] = useAuth();
+  const { auth } = useAuth();
   return (
     <>
       <h2>Home</h2>

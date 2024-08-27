@@ -1,8 +1,15 @@
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/authcontext";
+import { useAuth } from "../context/authcontext.js";
+import { useMessage } from "../context/messagecontext.js";
 
 export function Header() {
-  const [auth, setAuth] = useAuth();
+  const { auth, setAuth } = useAuth();
+  const { setMessage } = useMessage();
+  /*
+  
+  Logout handling function
+  
+  */
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -10,6 +17,7 @@ export function Header() {
       token: "",
     });
     localStorage.removeItem("auth");
+    setMessage("");
   };
   return (
     <table className="header">
@@ -53,12 +61,12 @@ export function Header() {
               ) : (
                 <>
                   <NavLink
-                    to="/account"
+                    to="/user/dashboard"
                     className={({ isActive }) =>
                       isActive ? "nav-link active-link" : "nav-link"
                     }
                   >
-                    <div className="nav-text poppins-light">Account</div>
+                    <div className="nav-text poppins-light">Dashboard</div>
                   </NavLink>
                   <NavLink
                     to="/login"

@@ -4,15 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { Authprovider } from "./context/authcontext.js";
+import { AuthProvider } from "./context/authcontext.js";
+import { MessageProvider } from "./context/messagecontext.js";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
     <BrowserRouter>
-      <Authprovider>
-        <App />
-      </Authprovider>
+      <AuthProvider>
+        <MessageProvider>
+          <App />
+        </MessageProvider>
+      </AuthProvider>
     </BrowserRouter>
   </>
 );
