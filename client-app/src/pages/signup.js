@@ -2,13 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../context/messagecontext.js";
-/*
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 
-
-sign up function  
-
-
-*/
 const Signup = () => {
   // State variables for form fields
   const [name, setName] = useState("");
@@ -16,8 +11,10 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [alertVariant, setAlertVariant] = useState(""); // State for alert variant
   const navigate = useNavigate();
   const { message, setMessage } = useMessage();
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +30,7 @@ const Signup = () => {
         console.log("Sending success");
         console.log(response.data.message);
         setMessage(response.data.message);
+        setAlertVariant("success"); // Set alert variant to success
         // Reset form fields
         setName("");
         setEmail("");
@@ -45,76 +43,89 @@ const Signup = () => {
         console.log("Sending failure");
         console.log(response.data.message);
         setMessage(response.data.message);
+        setAlertVariant("danger"); // Set alert variant to danger
       }
     } catch (error) {
       console.error(
         "Error occurred:",
         error.response ? error.response.data.message : error.message
       );
+      setMessage(error.response ? error.response.data.message : error.message);
+      setAlertVariant("danger"); // Set alert variant to danger
     }
   };
 
   return (
-    <div className="fcc">
-      <div className="box-form fcc">
-        <form className="fcc" onSubmit={handleSubmit}>
-          <div className="form-label">{message ? message : "Signup form"}</div>
-          <div className="mb-3">
-            <input
-              type="text"
-              value={name}
-              className="form-control"
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter your name"
-              required
-            />
+    <Container className="my-5">
+      <Row className="justify-content-center">
+        <Col md={6}>
+          <div className="text-center mb-4">
+            <h2>Sign Up</h2>
           </div>
-          <div className="mb-3">
-            <input
-              type="email"
-              value={email}
-              className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="password"
-              value={password}
-              className="form-control"
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              value={phone}
-              className="form-control"
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Enter your phone number"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              value={address}
-              className="form-control"
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="Enter your address"
-              required
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+          {message && <Alert variant={alertVariant}>{message}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formPhone">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter your phone number"
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formAddress">
+              <Form.Label>Address</Form.Label>
+              <Form.Control
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Enter your address"
+                required
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit" className="w-100">
+              Submit
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

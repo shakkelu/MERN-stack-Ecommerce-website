@@ -1,16 +1,13 @@
 import { NavLink } from "react-router-dom";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { useAuth } from "../context/authcontext.js";
 import { useMessage } from "../context/messagecontext.js";
+import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap CSS is imported
 
 export function Header() {
   const { auth, setAuth } = useAuth();
   const { setMessage } = useMessage();
 
-  /*
-  
-  Logout handling function
-  
-  */
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -20,80 +17,60 @@ export function Header() {
     localStorage.removeItem("auth");
     setMessage("");
   };
+
   return (
-    <table className="header">
-      <tbody>
-        <tr>
-          <td>
-            <div className="branding poppins-light">
-              <h1>Feather Wrath</h1>
-            </div>
-          </td>
-          <td>
-            <div className="nav">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active-link" : "nav-link"
-                }
-              >
-                <div className="nav-text poppins-light">Home</div>
-              </NavLink>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Container>
+        <Navbar.Brand as={NavLink} to="/">
+          Feather Wrath
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link as={NavLink} to="/" end activeClassName="active">
+              Home
+            </Nav.Link>
 
-              <div className="dropdown">
-                <button
-                  className="btn nav-text poppins-light dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+            {auth.user && (
+              <>
+                <Nav.Link
+                  as={NavLink}
+                  to="/user/dashboard"
+                  activeClassName="active"
                 >
-                  Account
-                </button>
-                {!auth.user ? (
-                  <ul className="dropdown-menu">
-                    <li>
-                      <NavLink to="/signup" className="dropdown-item">
-                        <div className="nav-text poppins-light">Sign Up</div>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/login" className="dropdown-item">
-                        <div className="nav-text poppins-light">Login</div>
-                      </NavLink>
-                    </li>
-                  </ul>
-                ) : (
-                  <ul className="dropdown-menu">
-                    <li>
-                      <NavLink to="/user/dashboard" className="dropdown-item">
-                        <div className="nav-text poppins-light">Dashboard</div>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/login"
-                        onClick={handleLogout}
-                        className="dropdown-item"
-                      >
-                        <div className="nav-text poppins-light">Logout</div>
-                      </NavLink>
-                    </li>
-                  </ul>
-                )}
-              </div>
+                  Dashboard
+                </Nav.Link>
+              </>
+            )}
 
-              <NavLink
-                to="/contact-us"
-                className={({ isActive }) =>
-                  isActive ? "nav-link active-link" : "nav-link"
-                }
+            <Nav.Link as={NavLink} to="/about-us" activeClassName="active">
+              About Us
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact-us" activeClassName="active">
+              Contact Us
+            </Nav.Link>
+            {!auth.user ? (
+              <>
+                <Nav.Link as={NavLink} to="/signup" activeClassName="active">
+                  Signup
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/login" activeClassName="active">
+                  Login
+                </Nav.Link>
+              </>
+            ) : (
+              <Nav.Link
+                as={NavLink}
+                to="/login"
+                onClick={handleLogout}
+                activeClassName="active"
               >
-                <div className="nav-text poppins-light">Contact Us</div>
-              </NavLink>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                Logout
+              </Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
