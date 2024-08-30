@@ -12,7 +12,7 @@ import Notfound from "./pages/notfound.js";
 import Home from "./pages/home.js";
 import AccessReq from "./routes/privateroute.js";
 import UserDashboard from "./pages/userDashboard.js";
-import AboutUs from "./pages/aboutus.js";
+
 function App() {
   return (
     <>
@@ -25,7 +25,6 @@ function App() {
           <Route path="/user" element={<AccessReq />}>
             <Route path="dashboard" element={<UserDashboard />} />
           </Route>
-          <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact-us" element={<Contactus />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
