@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
-import authroutes from "./routes/authroutes.js"; // Ensure this path is correct
+import router from "./routes/authRoutes.js";
 
 // Configure environment variables
 dotenv.config();
@@ -35,13 +35,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-app.use("/api/auth", authroutes); // Ensure this is correctly used
-
-app.get("/", (req, res) => {
-  res.send({
-    message: "Hello world",
-  });
-});
+app.use("/api/auth", router);
 
 const port = process.env.PORT || 4000;
 

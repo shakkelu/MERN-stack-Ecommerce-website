@@ -40,47 +40,46 @@ export function Header() {
                 <div className="nav-text poppins-light">Home</div>
               </NavLink>
 
-              <div className="dropdown">
-                <button
-                  className="btn nav-text poppins-light dropdown-toggle"
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Account
-                </button>
-                {!auth.user ? (
-                  <ul className="dropdown-menu">
-                    <li>
-                      <NavLink to="/signup" className="dropdown-item">
-                        <div className="nav-text poppins-light">Sign Up</div>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink to="/login" className="dropdown-item">
-                        <div className="nav-text poppins-light">Login</div>
-                      </NavLink>
-                    </li>
-                  </ul>
-                ) : (
-                  <ul className="dropdown-menu">
-                    <li>
-                      <NavLink to="/user/dashboard" className="dropdown-item">
-                        <div className="nav-text poppins-light">Dashboard</div>
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/login"
-                        onClick={handleLogout}
-                        className="dropdown-item"
-                      >
-                        <div className="nav-text poppins-light">Logout</div>
-                      </NavLink>
-                    </li>
-                  </ul>
-                )}
-              </div>
+              {!auth.user ? (
+                <>
+                  <NavLink
+                    to="/signup"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Sign Up</div>
+                  </NavLink>
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Login</div>
+                  </NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to="/user/dashboard"
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Dashboard</div>
+                  </NavLink>
+                  <NavLink
+                    to="/login"
+                    onClick={handleLogout}
+                    className={({ isActive }) =>
+                      isActive ? "nav-link active-link" : "nav-link"
+                    }
+                  >
+                    <div className="nav-text poppins-light">Logout</div>
+                  </NavLink>
+                </>
+              )}
 
               <NavLink
                 to="/contact-us"

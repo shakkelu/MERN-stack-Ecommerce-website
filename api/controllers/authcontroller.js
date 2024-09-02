@@ -128,6 +128,44 @@ export const loginController = async (req, res) => {
 
 /*
 
+Forgot password controller
+
+*/
+
+export const forgotPasswordController = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find the user by email
+    const existingUser = await userModel.findOne({ email });
+    if (!existingUser) {
+      return res.status(400).send({
+        success: "false",
+        message: "User doesn't exist!, please signup",
+      });
+    } else {
+      const securityQuestion = await existingUser.securityQuestion;
+      return res.status(200).send({
+        success: "true",
+        message: securityQuestion,
+      });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ success: "false", message: "Error in login", error });
+  }
+};
+
+/*
+
+security question answer controller
+
+*/
+export const answerController = async (req, res) => {};
+
+/*
+
 private content 
 
 */
