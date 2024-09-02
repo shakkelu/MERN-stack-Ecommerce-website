@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
-import router from "./routes/authRoutes.js";
+import router from "./routes/authRoute.js";
 
 // Configure environment variables
 dotenv.config();
