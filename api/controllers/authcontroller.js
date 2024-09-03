@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"; // Assuming bcrypt for hashing
 import userModel from "../models/user.js";
-import Dashboard from "../models/userDashboard.js";
+
 import JWT from "jsonwebtoken";
 
 /* 
@@ -163,10 +163,3 @@ security question answer controller
 
 */
 export const answerController = async (req, res) => {};
-
-/*
-
-private content 
-
-*/
-export const privatecontent = (req, res) => res.send("private content here");

@@ -4,6 +4,8 @@ import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
 import router from "./routes/authRoute.js";
+import productRouter from "./routes/productRoute.js";
+import categoryRouter from "./routes/categoryRoute.js";
 
 // Configure environment variables
 dotenv.config();
@@ -36,6 +38,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/api/auth", router);
+app.use("/api", productRouter);
+app.use("/api", categoryRouter);
 
 const port = process.env.PORT || 4000;
 

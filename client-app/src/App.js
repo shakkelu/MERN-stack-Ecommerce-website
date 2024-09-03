@@ -1,6 +1,8 @@
 import "./styles/App.css";
 import "./styles/header.css";
 import "./styles/footer.css";
+import "./styles/productCard.css";
+import "./styles/home.css";
 import { Header } from "./components/header.js";
 import { Body } from "./components/body.js";
 import { Footer } from "./components/footer.js";
@@ -10,9 +12,7 @@ import Signup from "./pages/signup.js";
 import Contactus from "./pages/contactus.js";
 import Notfound from "./pages/notfound.js";
 import Home from "./pages/home.js";
-
 import UserDashboard from "./pages/userDashboard.js";
-
 function App() {
   return (
     <>
@@ -22,9 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-
           <Route path="dashboard" element={<UserDashboard />} />
-
           <Route path="/contact-us" element={<Contactus />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
