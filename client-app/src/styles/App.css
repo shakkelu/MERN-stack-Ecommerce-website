@@ -23,3 +23,16 @@
 .body {
   min-height: 50vh;
 }
+
+.wid {
+  width: 350px;
+
+  padding: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 400px auto;
+  gap: 10px; /* Optional: adds space between columns */
+  margin: 10px;
+}

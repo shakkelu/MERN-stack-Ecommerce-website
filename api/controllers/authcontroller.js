@@ -11,7 +11,8 @@ Register controller ( or signup function)
 
 export const registercontroller = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address, securityQuestion, answer } =
+      req.body;
 
     // Validation
     if (!name) return res.status(400).send({ message: "Name is required" });
@@ -40,17 +41,11 @@ export const registercontroller = async (req, res) => {
       address,
       phone,
       password: hashedPassword,
+      securityQuestion,
+      answer,
     });
 
     await newUser.save();
-
-    // Create a dashboard for the new user
-    const newDashboard = new Dashboard({
-      userId: newUser._id,
-      // Initialize other fields if needed
-    });
-
-    await newDashboard.save();
 
     res.status(200).send({
       success: "true",

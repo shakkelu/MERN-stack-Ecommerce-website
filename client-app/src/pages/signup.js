@@ -19,7 +19,7 @@ const Signup = () => {
     try {
       const response = await axios.post(
         "http://localhost:4000/api/auth/register",
-        { name, email, password, phone, address }
+        { name, email, password, phone, address, securityQuestion, answer }
       );
       if (response.status === 200) {
         setMessage(response.data.message);
@@ -28,6 +28,8 @@ const Signup = () => {
         setPassword("");
         setPhone("");
         setAddress("");
+        setSecurityQuestion("");
+        setAnswer("");
         navigate("/login");
       } else {
         setMessage(response.data.message);
