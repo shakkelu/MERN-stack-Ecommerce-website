@@ -6,7 +6,6 @@ import mongoose from "mongoose";
 import router from "./routes/authRoute.js";
 import productRouter from "./routes/productRoute.js";
 import categoryRouter from "./routes/categoryRoute.js";
-import { v2 as cloudinary } from "cloudinary";
 
 // Configure environment variables
 dotenv.config();
@@ -32,13 +31,6 @@ const connectDB = async () => {
 
 // Connect to the database
 connectDB();
-
-// Cloudinary Configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 app.use(cors());
 app.use(express.json());
