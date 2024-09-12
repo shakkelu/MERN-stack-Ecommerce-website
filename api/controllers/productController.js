@@ -6,7 +6,7 @@ import sharp from "sharp";
 // Controller to create a new product
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { name, description, price, category, sizes } = req.body;
     const images = req.files;
 
     if (!images || images.length === 0) {
@@ -27,14 +27,13 @@ export const createProduct = async (req, res) => {
         const filename = `image-${Date.now()}-${index}${path.extname(
           image.originalname
         )}`;
-        const outputPath = path.join(dir, filename);
+        const outputPath = path.join(dir, filename).replace(/\\/g, "/"); // Normalize path
 
         // Use sharp to resize the image before saving
         await sharp(image.buffer)
-          .resize(800, 800, { fit: "cover" }) // Resize to 800x800 pixels
+          .resize(800, 800, { fit: "cover" })
           .toFile(outputPath);
 
-        // Save the resized image file path for further use (e.g., in the database)
         processedImages.push({ path: outputPath });
       })
     );
@@ -44,7 +43,8 @@ export const createProduct = async (req, res) => {
       name,
       description,
       price,
-      images: processedImages.map((image) => image.path), // Store image paths
+      sizes: JSON.parse(sizes),
+      images: processedImages.map((image) => image.path), // Store normalized image paths
       category,
     });
 
@@ -61,10 +61,17 @@ export const createProduct = async (req, res) => {
 };
 
 // Controller to fetch all products
-export const getAllProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate("category");
-    res.status(200).json(products);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const products = await Product.find().skip(skip).limit(limit);
+    const totalProducts = await Product.countDocuments();
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    res.json({ products, totalPages });
   } catch (error) {
     res.status(500).json({ message: "Error fetching products", error });
   }

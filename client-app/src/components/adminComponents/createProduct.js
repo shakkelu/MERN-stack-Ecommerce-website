@@ -8,6 +8,7 @@ const ProductForm = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
+  const [sizes, setSizes] = useState([{ size: "", stock: "" }]); // Initialize sizes
 
   useEffect(() => {
     // Fetch available categories from the backend
@@ -29,6 +30,22 @@ const ProductForm = () => {
     setImages(e.target.files); // Handle multiple files
   };
 
+  const handleSizeChange = (index, event) => {
+    const newSizes = sizes.slice();
+    newSizes[index][event.target.name] = event.target.value;
+    setSizes(newSizes);
+  };
+
+  const addSizeField = () => {
+    setSizes([...sizes, { size: "", stock: "" }]);
+  };
+
+  const removeSizeField = (index) => {
+    const newSizes = sizes.slice();
+    newSizes.splice(index, 1);
+    setSizes(newSizes);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -36,6 +53,7 @@ const ProductForm = () => {
     formData.append("description", description);
     formData.append("price", price);
     formData.append("category", category);
+    formData.append("sizes", JSON.stringify(sizes)); // Add sizes as JSON string
     for (let i = 0; i < images.length; i++) {
       formData.append("images", images[i]); // Append each image file
     }
@@ -114,6 +132,34 @@ const ProductForm = () => {
               onChange={handleImageChange}
               id="formFile"
             />
+          </div>
+
+          <div className="sizes-section">
+            <h4>Product Sizes</h4>
+            {sizes.map((size, index) => (
+              <div key={index} className="size-field">
+                <input
+                  type="text"
+                  name="size"
+                  value={size.size}
+                  placeholder="Size (e.g., S, M, L)"
+                  onChange={(e) => handleSizeChange(index, e)}
+                />
+                <input
+                  type="number"
+                  name="stock"
+                  value={size.stock}
+                  placeholder="Stock quantity"
+                  onChange={(e) => handleSizeChange(index, e)}
+                />
+                <button type="button" onClick={() => removeSizeField(index)}>
+                  Remove Size
+                </button>
+              </div>
+            ))}
+            <button type="button" onClick={addSizeField}>
+              Add Size
+            </button>
           </div>
 
           <button type="submit" className="btn btn-primary">

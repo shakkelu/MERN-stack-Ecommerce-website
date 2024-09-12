@@ -15,7 +15,7 @@ import Notfound from "./pages/notfound.js";
 import Home from "./pages/home.js";
 import UserDashboard from "./pages/userDashboard.js";
 import ProductForm from "./components/adminComponents/createProduct.js";
-import ProductPage from "./components/productPage.js";
+import ProductDetails from "./components/productDetails.js";
 function App() {
   return (
     <>
@@ -23,7 +23,7 @@ function App() {
       <Body>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/products/:productId" element={<ProductPage />} />
+          <Route path="/products/:productId" element={<ProductDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<UserDashboard />} />
