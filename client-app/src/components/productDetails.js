@@ -41,7 +41,7 @@ const ProductDetails = () => {
               key={index}
             >
               <img
-                src={image}
+                src={`http://localhost:4000/${image}`}
                 className="d-block w-100 "
                 alt={`Product Image ${index + 1}`}
               />
