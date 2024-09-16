@@ -22,6 +22,19 @@ const ProductDetails = () => {
     fetchProduct();
   }, [productId]);
 
+  // Function to handle adding a product to the cart
+  const handleAddToCart = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/cart/add-to-cart", // Cart route
+        { productId: product._id, quantity: 1 } // Payload for adding to cart
+      );
+      console.log("Product added to cart:", response.data);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -80,7 +93,9 @@ const ProductDetails = () => {
         <h1 className="text-center">{product.name}</h1>
         <p>{product.description}</p>
         <p>Price: ${product.price}</p>
-        <button className="btn btn-primary">Add to Cart</button>
+        <button className="btn btn-primary" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );

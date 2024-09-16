@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import router from "./routes/authRoute.js";
 import productRouter from "./routes/productRoute.js";
 import categoryRouter from "./routes/categoryRoute.js";
+import cartRouter from "./routes/cartRoute.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -49,6 +50,7 @@ app.use("/uploads", express.static(join(__dirname, "uploads")));
 app.use("/api/auth", router);
 app.use("/api/products", productRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/cart", cartRouter);
 
 const port = process.env.PORT || 4000;
 
