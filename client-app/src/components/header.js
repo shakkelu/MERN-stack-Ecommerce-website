@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../context/authcontext.js";
+import { useAuth } from "../context/authContext.js";
 import { useMessage } from "../context/messagecontext.js";
 
 export function Header() {
@@ -38,6 +38,14 @@ export function Header() {
                 }
               >
                 <div className="nav-text poppins-light">Home</div>
+              </NavLink>
+              <NavLink
+                to={auth.user ? "/cart" : "/login"}
+                className={({ isActive }) =>
+                  isActive ? "nav-link active-link" : "nav-link"
+                }
+              >
+                <div className="nav-text poppins-light">Cart</div>
               </NavLink>
 
               {!auth.user ? (

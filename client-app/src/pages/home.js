@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../context/authcontext";
+import { useAuth } from "../context/authContext";
 import ProductPage from "../components/productPage";
 
 function Home() {

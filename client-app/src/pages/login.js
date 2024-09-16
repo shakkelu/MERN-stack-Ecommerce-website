@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useAuth } from "../context/authcontext.js";
+import { useAuth } from "../context/authContext.js";
 import { useMessage } from "../context/messagecontext.js";
 import { useNavigate, NavLink } from "react-router-dom";
 

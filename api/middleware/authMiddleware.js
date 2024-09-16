@@ -1,6 +1,5 @@
-// middleware/authMiddleware.js
 import jwt from "jsonwebtoken";
-import User from "./models/User.js"; // Assuming you have a User model
+import userModel from "../models/user.js";
 
 // Middleware function to authenticate a user
 export const isAuthenticated = async (req, res, next) => {
@@ -18,7 +17,7 @@ export const isAuthenticated = async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace JWT_SECRET with your secret
 
     // Attach user to request after verification
-    req.user = await User.findById(decoded.id).select("-password"); // Optionally, exclude password
+    req.user = await userModel.findById(decoded.id).select("-password"); // Optionally, exclude password
 
     if (!req.user) {
       return res

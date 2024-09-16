@@ -16,6 +16,7 @@ import Home from "./pages/home.js";
 import UserDashboard from "./pages/userDashboard.js";
 import ProductForm from "./components/adminComponents/createProduct.js";
 import ProductDetails from "./components/productDetails.js";
+import CartPage from "./components/cartPage.js";
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
           <Route path="/products/:productId" element={<ProductDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/create-product" element={<ProductForm />} />
           <Route path="/contact-us" element={<Contactus />} />
