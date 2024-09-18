@@ -4,17 +4,14 @@ import { useAuth } from "../context/authContext";
 import CartCard from "./cartCard.js"; // Import the CartCard component
 
 const CartPage = () => {
-  const { auth } = useAuth();
+  const { auth, loading } = useAuth(); // Access the loading state
   const [cart, setCart] = useState(null);
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        if (auth.token) {
-          // Ensure token is available before making the request
-          console.log(
-            `sending request from cart page, token is ${auth.token} `
-          );
+        if (auth.token && !loading) {
+          // Wait for token and ensure it's not loading
           const response = await axios.get(
             "http://localhost:4000/api/cart/get-cart"
           );
@@ -26,8 +23,10 @@ const CartPage = () => {
       }
     };
 
-    fetchCart();
-  }, [auth.token]); // The effect runs once when token becomes available
+    if (!loading) {
+      fetchCart(); // Only fetch cart when loading is complete
+    }
+  }, [auth.token, loading]); // The effect runs once when token and loading change
 
   // Function to remove an item from the cart
   const removeFromCart = (productId) => {
@@ -37,9 +36,13 @@ const CartPage = () => {
     }));
   };
 
+  // If still loading, show a loading message
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   // If no cart or no items, show an empty cart message
   if (!cart || cart.items.length === 0) {
-    console.log("No cart");
     return <div>Your cart is empty</div>;
   }
 

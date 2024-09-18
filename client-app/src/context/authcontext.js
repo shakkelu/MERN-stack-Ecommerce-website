@@ -8,10 +8,10 @@ export const AuthProvider = ({ children }) => {
     user: null,
     token: "",
   });
+  const [loading, setLoading] = useState(true); // Track loading state
 
   // Load auth data from local storage on mount
   useEffect(() => {
-    // Retrieve and parse auth data from local storage on mount
     const data = localStorage.getItem("auth");
     if (data) {
       const parsedData = JSON.parse(data);
@@ -20,23 +20,22 @@ export const AuthProvider = ({ children }) => {
         token: parsedData.token,
       });
     }
-  }, []); // Empty dependency array to run effect only once on mount
+  }, []);
 
   // Set axios default headers whenever auth changes
   useEffect(() => {
     if (auth.token) {
       axios.defaults.headers.common["Authorization"] = auth.token;
       console.log(`Token mounted: ${auth.token}`);
+      setLoading(false);
     }
   }, [auth.token]);
 
-  // Provide context values
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, loading }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook to use the Auth context
 export const useAuth = () => useContext(AuthContext);
