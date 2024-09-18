@@ -24,9 +24,11 @@ export const AuthProvider = ({ children }) => {
 
   // Set axios default headers whenever auth changes
   useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = auth?.token;
-    console.log(`Token mounted:${auth.token}`);
-  }, [auth.token]); // Dependency array includes auth.token to update headers when it changes
+    if (auth.token) {
+      axios.defaults.headers.common["Authorization"] = auth.token;
+      console.log(`Token mounted: ${auth.token}`);
+    }
+  }, [auth.token]);
 
   // Provide context values
   return (

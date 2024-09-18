@@ -8,6 +8,7 @@ cart creation for users and its updates
 */
 
 export const cartUpdate = async (req, res) => {
+  console.log("Entering to cartUpdate finction");
   const { productId, quantity } = req.body;
 
   try {
