@@ -7,6 +7,8 @@ import router from "./routes/authRoute.js";
 import productRouter from "./routes/productRoute.js";
 import categoryRouter from "./routes/categoryRoute.js";
 import cartRouter from "./routes/cartRoute.js";
+import orderRoutes from "./routes/orderRoute.js";
+import addressRoutes from "./routes/addressRoute.js";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -51,6 +53,8 @@ app.use("/api/auth", router);
 app.use("/api/products", productRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/orders", orderRoutes);
+app.use("/api/addresses", addressRoutes);
 
 const port = process.env.PORT || 4000;
 

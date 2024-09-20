@@ -17,6 +17,10 @@ import UserDashboard from "./pages/userDashboard.js";
 import ProductForm from "./components/adminComponents/createProduct.js";
 import ProductDetails from "./components/productDetails.js";
 import CartPage from "./components/cartPage.js";
+import CheckoutPage from "./components/checkoutPage.js";
+import OrderSuccessPage from "./components/orderSuccessPage.js";
+import AddAddressPage from "./components/addressPage.js";
+
 function App() {
   return (
     <>
@@ -28,6 +32,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/order-success" element={<OrderSuccessPage />} />
+          <Route path="/add-address" element={<AddAddressPage />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/create-product" element={<ProductForm />} />
           <Route path="/contact-us" element={<Contactus />} />

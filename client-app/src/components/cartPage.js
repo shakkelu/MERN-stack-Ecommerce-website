@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/authContext";
-import CartCard from "./cartCard.js"; // Import the CartCard component
+import { useNavigate } from "react-router-dom";
+import CartCard from "./cartCard.js";
 
 const CartPage = () => {
-  const { auth, loading } = useAuth(); // Access the loading state
+  const { auth, loading } = useAuth();
   const [cart, setCart] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
         if (auth.token && !loading) {
-          // Wait for token and ensure it's not loading
           const response = await axios.get(
             "http://localhost:4000/api/cart/get-cart"
           );
           setCart(response.data);
-          console.log("Cart data fetched");
         }
       } catch (error) {
         console.error("Error fetching cart:", error);
@@ -24,24 +24,28 @@ const CartPage = () => {
     };
 
     if (!loading) {
-      fetchCart(); // Only fetch cart when loading is complete
+      fetchCart();
     }
-  }, [auth.token, loading]); // The effect runs once when token and loading change
+  }, [auth.token, loading]);
 
-  // Function to remove an item from the cart
-  const removeFromCart = (productId) => {
-    setCart((prevCart) => ({
-      ...prevCart,
-      items: prevCart.items.filter((item) => item.product._id !== productId),
-    }));
+  // Calculate total price of all items
+  const calculateTotalPrice = () => {
+    return cart.items.reduce((total, item) => {
+      return total + item.product.price * item.quantity;
+    }, 0);
   };
 
-  // If still loading, show a loading message
+  const totalPrice = cart ? calculateTotalPrice() : 0;
+
+  // Handle navigation to the checkout page
+  const handleCheckout = () => {
+    navigate("/checkout", { state: { cart, totalPrice } });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // If no cart or no items, show an empty cart message
   if (!cart || cart.items.length === 0) {
     return <div>Your cart is empty</div>;
   }
@@ -54,11 +58,21 @@ const CartPage = () => {
           <CartCard
             key={item.product._id}
             item={item}
-            removeFromCart={removeFromCart}
+            removeFromCart={(productId) =>
+              setCart((prevCart) => ({
+                ...prevCart,
+                items: prevCart.items.filter(
+                  (item) => item.product._id !== productId
+                ),
+              }))
+            }
           />
         ))}
       </ul>
       <p>Total Items: {cart.items.length}</p>
+      <p>Total Price: ${totalPrice}</p>
+
+      <button onClick={handleCheckout}>Proceed to Checkout</button>
     </div>
   );
 };
